@@ -1,0 +1,10 @@
+2015-11-14T04:59:15.8227269Z,Updating branch 'b1212a350fed5b1db10b0535bb38986fc45d62ac'.,c81b77a1-7231-41a2-ae26-50f82694a408,0
+2015-11-14T04:59:16.0883785Z,Updating submodules.,3659bc37-dea5-42f2-ac3b-a7c84b24a220,0
+2015-11-14T04:59:16.1509093Z,Preparing deployment for commit id 'b1212a350f'.,62a658cb-8774-4f5c-b990-0abcdb3ff3d4,0
+2015-11-14T04:59:16.2915104Z,Running custom deployment command...,03659599-8d25-4a3b-8e15-314bbc822466,0
+2015-11-14T04:59:16.3383706Z,Running deployment command...,48789878-bc22-47da-b071-4e4356b3b90e,0
+	2015-11-14T04:59:16.3383706Z,Command: d:\home\SiteExtensions\ComposerExtension\Hooks\deploy.cmd,,0
+	2015-11-14T04:59:18.3737658Z,Install Dependencies with Composer,,0
+	2015-11-14T04:59:18.7799941Z,An error has occurred during web site deployment.,,0
+	2015-11-14T04:59:18.8112526Z,Composer could not find a composer.json file in D:\home\site\wwwroot,,1
+	2015-11-14T04:59:18.8112526Z,To initialize a project&comma; please create a composer.json file as described in the https://getcomposer.org/ "Getting Started" section,,1

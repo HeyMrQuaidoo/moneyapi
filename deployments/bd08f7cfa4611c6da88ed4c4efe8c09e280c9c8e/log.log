@@ -1,0 +1,10 @@
+2015-11-11T21:53:23.5124405Z,Updating branch 'master'.,e6b5de34-663b-484a-ad2d-ca14e6f91fb7,0
+2015-11-11T21:53:23.7936522Z,Updating submodules.,0b397a87-fdf9-4c8d-b9dc-836db8bbe702,0
+2015-11-11T21:53:23.8405288Z,Preparing deployment for commit id 'bd08f7cfa4'.,9b98e4e3-ad56-4da6-b1d3-3589433dfd08,0
+2015-11-11T21:53:24.4051434Z,Generating deployment script.,100c7b98-b88b-4434-93b3-2270699d4e39,0
+	2015-11-11T21:53:24.4712377Z,Using cached version of deployment script (command: 'azure -y --no-dot-deployment -r "D:\home\site\wwwroot" -o "D:\home\site\deployments\tools" --basic --sitePath "D:\home\site\wwwroot"').,,0
+2015-11-11T21:53:24.5145203Z,Running deployment command...,f4401a63-4d7e-4f2b-8e2d-1775e483181e,0
+	2015-11-11T21:53:24.5145203Z,Command: "D:\home\site\deployments\tools\deploy.cmd",,0
+	2015-11-11T21:53:25.2332679Z,Handling Basic Web Site deployment.,,0
+	2015-11-11T21:53:25.2645537Z,Finished successfully.,,0
+2015-11-11T21:53:25.3270239Z,Deployment successful.,e0ab5ecb-2ac3-489a-81f5-5e9b5eff1ea1,0

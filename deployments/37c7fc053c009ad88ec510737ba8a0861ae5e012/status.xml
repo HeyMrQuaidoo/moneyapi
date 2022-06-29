@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<deployment>
+  <id>37c7fc053c009ad88ec510737ba8a0861ae5e012</id>
+  <author>DaCardinal</author>
+  <deployer>DaCardinal</deployer>
+  <authorEmail>Daniel@Macbook-Pro-2.local</authorEmail>
+  <message>Lavarel changes
+</message>
+  <progress></progress>
+  <status>Failed</status>
+  <statusText></statusText>
+  <lastSuccessEndTime />
+  <receivedTime>2015-11-17T06:11:22.8216079Z</receivedTime>
+  <startTime>2015-11-17T06:11:23.5872486Z</startTime>
+  <endTime>2015-11-17T06:14:41.18337Z</endTime>
+  <complete>True</complete>
+  <is_temp>False</is_temp>
+  <is_readonly>False</is_readonly>
+</deployment>

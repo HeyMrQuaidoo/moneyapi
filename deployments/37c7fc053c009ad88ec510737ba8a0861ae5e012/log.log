@@ -1,0 +1,18 @@
+2015-11-17T06:11:22.9622376Z,Updating branch 'master'.,5bcb8480-ab6c-4f6c-9762-ec68e391a804,0
+2015-11-17T06:11:23.4778713Z,Updating submodules.,e3cf7784-3c52-412b-8bc7-51b0fc9de6b8,0
+2015-11-17T06:11:23.5560153Z,Preparing deployment for commit id '37c7fc053c'.,3c64e0a7-81d5-4a15-bc70-01d996d6c110,0
+2015-11-17T06:11:23.7903788Z,Running custom deployment command...,e5b85240-c4f9-42b6-b821-2c4becfbe707,0
+2015-11-17T06:11:23.8685021Z,Running deployment command...,7a5f89bd-e167-4de5-852e-782dbd4ab72e,0
+	2015-11-17T06:11:23.8997546Z,Command: d:\home\SiteExtensions\ComposerExtension\Hooks\deploy.cmd,,0
+	2015-11-17T06:11:24.9177793Z,Install Dependencies with Composer,,0
+	2015-11-17T06:11:27.0949609Z,Loading composer repositories with package information,,1
+	2015-11-17T06:11:27.1224457Z,Installing dependencies from lock file,,1
+	2015-11-17T06:11:27.2171055Z,Nothing to install or update,,1
+	2015-11-17T06:11:27.2475112Z,Generating optimized autoload files,,1
+	2015-11-17T06:12:37.6341043Z,> php artisan clear-compiled,,1
+	2015-11-17T06:12:41.9779822Z,> php artisan optimize,,1
+	2015-11-17T06:12:45.6655312Z,Generating optimized class loader,,0
+	2015-11-17T06:14:14.7028867Z,Compiling common classes,,0
+	2015-11-17T06:14:40.9645970Z,Handling Basic Web Site deployment.,,0
+	2015-11-17T06:14:41.0896219Z,Error: Source and destination directories cannot be sub-directories of each other,,1
+	2015-11-17T06:14:41.0896219Z,An error has occurred during web site deployment.,,0

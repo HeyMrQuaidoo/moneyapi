@@ -1,0 +1,1968 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "API Documentation",
+        "description": "Server endpoint for Gunther project. Each of the resources below has multiple endpoints which allows end users and developers to access the Gunther API. This server allows you can use the api key  \"special-key\" to test the authorization filters",
+        "termsOfService": "https://dacardinal.azurewebsites.net",
+        "contact": {
+            "email": ""
+        },
+        "license": {
+            "name": "",
+            "url": ""
+        },
+        "version": "0.0.1"
+    },
+    "host": "localhost:9000",
+    "basePath": "/v1/api",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/accounts": {
+            "get": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Get all accounts",
+                "description": "Returns all accounts",
+                "externalDocs": {
+                    "description": "find more info here",
+                    "url": "https://swagger.io/about"
+                },
+                "operationId": "get.accounts",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Empty Param will return all types of accounts. Type of accounts that can be fetched (options: Credit Card, Savings, Checking)",
+                        "required": false,
+                        "type": "string",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi",
+                        "enum": [
+                            "Credit Card",
+                            "Checking",
+                            "Savings"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of accounts",
+                        "schema": {
+                            "$ref": "#/definitions/Account"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching accounts",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "api_key": [
+                            "write:pets",
+                            "read:pets"
+                        ]
+                    }
+                ]
+            }
+        },
+        "/accounts/{id}": {
+            "get": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Get account by id",
+                "description": "Returns an account based on a specific ID",
+                "operationId": "get.accounts.via.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of account that needs to be fetched",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of accounts",
+                        "schema": {
+                            "$ref": "#/definitions/Account"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching accounts. Account id doesn't exist",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Update a specific existing account",
+                "description": "Updates account based on a specific ID",
+                "operationId": "update.account.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific account that needs to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Account update object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Account"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Valid account update",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating account",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Delete a specific existing account",
+                "description": "Deletes account based on a specific ID",
+                "operationId": "delete.account.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific account that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating account",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/clients/{id}/accounts": {
+            "get": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Get accounts by client id",
+                "description": "Returns the accounts associated with the specific client",
+                "operationId": "get.accounts.via.client.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of client to fetch accounts for",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of accounts",
+                        "schema": {
+                            "$ref": "#/definitions/Account"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching accounts. Client id doesn't exist",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Accounts"
+                ],
+                "summary": "Create an account",
+                "description": "Creates an account for the client with the id provided",
+                "operationId": "create.account.for.client.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of client that account will belong to",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Account to be created",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Account"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "List of accounts",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating account",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/atms": {
+            "get": {
+                "tags": [
+                    "ATM"
+                ],
+                "summary": "Get all atms",
+                "description": "Returns all ATMs in the specified search area.",
+                "externalDocs": {
+                    "description": "find more info here",
+                    "url": "https://swagger.io/about"
+                },
+                "operationId": "get.atms",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "latitude",
+                        "in": "query",
+                        "description": "Latitude of where you're looking for an ATM. Remember Negatives for West",
+                        "required": false,
+                        "type": "number",
+                        "format": "int32"
+                    },
+                    {
+                        "name": "longitude",
+                        "in": "query",
+                        "description": "Longitude of where you're looking for an ATM. Remember Negatives for South",
+                        "required": false,
+                        "type": "number",
+                        "format": "int32"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of ATMs",
+                        "schema": {
+                            "$ref": "#/definitions/Atm"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching atms.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/atms/{id}": {
+            "get": {
+                "tags": [
+                    "ATM"
+                ],
+                "summary": "Get ATM by id",
+                "description": "Returns an ATM based on a specific ID",
+                "operationId": "get.atm.via.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of ATM that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of ATM by specific ID",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Atm"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching atms.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/branches": {
+            "get": {
+                "tags": [
+                    "Branches"
+                ],
+                "summary": "Get all branches",
+                "description": "Returns all branches.",
+                "externalDocs": {
+                    "description": "find more info here",
+                    "url": "https://swagger.io/about"
+                },
+                "operationId": "get.branches",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of branches",
+                        "schema": {
+                            "$ref": "#/definitions/Branch"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching branches",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/branches/{id}": {
+            "get": {
+                "tags": [
+                    "Branches"
+                ],
+                "summary": "Get branch by id",
+                "description": "Returns a branch based on a specific ID",
+                "operationId": "get.branch.via.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of branch that needs to be fetched",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of branch by specific ID",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Branch"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching branches",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{id}/client": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Get the client associated with the specified account",
+                "description": "Returns the client that the specified account belongs to.",
+                "externalDocs": {
+                    "description": "find more info here",
+                    "url": "https://swagger.io/about"
+                },
+                "operationId": "get.client.via.account.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of account that the client is associated with",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Client associated with specified id",
+                        "schema": {
+                            "$ref": "#/definitions/Client"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching client",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/clients": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Get all clients",
+                "description": "Returns all clients.",
+                "operationId": "get.clients",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve all clients.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Client"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching clients.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Create a client",
+                "description": "Creates a new client",
+                "operationId": "create.client",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Client to be created",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Client"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Creation request accepted",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating client",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/clients/{id}": {
+            "get": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Get client by id",
+                "description": "Returns the client associated with the specified client id.",
+                "externalDocs": {
+                    "description": "find more info here",
+                    "url": "https://swagger.io/about"
+                },
+                "operationId": "get.client.via.client.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of client being queried",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Client associated with specified id",
+                        "schema": {
+                            "$ref": "#/definitions/Client"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching client",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Client"
+                ],
+                "summary": "Update a specific existing client",
+                "description": "Updates client information based on a specific ID",
+                "operationId": "update.client.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific client that needs to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Client update object",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Address"
+                        }
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Valid client update",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error updating client",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{id}/deposit": {
+            "get": {
+                "tags": [
+                    "Deposit"
+                ],
+                "summary": "Get all deposits by account id",
+                "description": "Returns the deposits assocaited with the specified account",
+                "externalDocs": {
+                    "description": "find more info here",
+                    "url": "https://swagger.io/about"
+                },
+                "operationId": "get.deposit.via.account.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of account that the deposit is associated with",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Deposit associated with specified account id",
+                        "schema": {
+                            "$ref": "#/definitions/Deposit"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching deposit",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/deposits/{id}": {
+            "get": {
+                "tags": [
+                    "Deposit"
+                ],
+                "summary": "Get all deposits by id",
+                "description": "Returns the deposits associated with the specified id",
+                "operationId": "get.deposits.via.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of unique deposit associated with account",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve all deposits.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Deposit"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching deposit.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Deposit"
+                ],
+                "summary": "Update a specific existing deposit",
+                "description": "Updates deposit information based on a specific ID",
+                "operationId": "update.deposit.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific deposit that needs to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "description": "Alter amount for associated deposit",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Update the status of the deposit",
+                        "required": true,
+                        "type": "string",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi",
+                        "enum": [
+                            "pending",
+                            "cancelled",
+                            "completed",
+                            "rejected"
+                        ]
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "ID of specific deposit that needs to be updated",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Valid deposit update",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error updating deposit",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Deposit"
+                ],
+                "summary": "Delete a specific existing deposit",
+                "description": "Deletes deposits based on a specific ID",
+                "operationId": "delete.deposit.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific deposit that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating deposit",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{id}/deposits": {
+            "post": {
+                "tags": [
+                    "Deposit"
+                ],
+                "summary": "Create a new deposit",
+                "description": "Creates a new deposit",
+                "operationId": "create.deposit",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of client that the deposit would be associated with",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Deposit to be created",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Deposit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Creation request accepted",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating deposit",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{id}/transfer": {
+            "get": {
+                "tags": [
+                    "Transfer"
+                ],
+                "summary": "Get all transfers by account id",
+                "description": "Returns the transfers assocaited with the specified account",
+                "externalDocs": {
+                    "description": "find more info here",
+                    "url": "https://swagger.io/about"
+                },
+                "operationId": "get.transfer.via.account.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of account that the transfer is associated with",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Transfer associated with specified account id",
+                        "schema": {
+                            "$ref": "#/definitions/Transfer"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching transfer",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/transfers/{id}": {
+            "get": {
+                "tags": [
+                    "Transfer"
+                ],
+                "summary": "Get all transfers by id",
+                "description": "Returns the transfers associated with the specified id",
+                "operationId": "get.transfers.via.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of unique transfer associated with account",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve all transfers.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Transfer"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching transfer.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Transfer"
+                ],
+                "summary": "Update a specific existing transfer",
+                "description": "Updates transfer information based on a specific ID",
+                "operationId": "update.transfer.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific transfer that needs to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "description": "Alter amount for associated transfer",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Update the status of the transfer",
+                        "required": true,
+                        "type": "string",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi",
+                        "enum": [
+                            "pending",
+                            "cancelled",
+                            "completed",
+                            "rejected"
+                        ]
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "ID of specific transfer that needs to be updated",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Valid transfer update",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error updating transfer",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Transfer"
+                ],
+                "summary": "Delete a specific existing transfer",
+                "description": "Deletes transfers based on a specific ID",
+                "operationId": "delete.transfer.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific transfer that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating transfer",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{id}/transfers": {
+            "post": {
+                "tags": [
+                    "Transfer"
+                ],
+                "summary": "Create a new transfer",
+                "description": "Creates a new transfer",
+                "operationId": "create.transfer",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of client that the transfer would be associated with (payer)",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Transfer to be created",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Transfer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Creation request accepted",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating transfer",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{id}/withdrawal": {
+            "get": {
+                "tags": [
+                    "Withdrawal"
+                ],
+                "summary": "Get all withdrawals by account id",
+                "description": "Returns the withdrawals assocaited with the specified account",
+                "externalDocs": {
+                    "description": "find more info here",
+                    "url": "https://swagger.io/about"
+                },
+                "operationId": "get.withdrawal.via.account.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of account that the withdrawal is associated with",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Withdrawal associated with specified account id",
+                        "schema": {
+                            "$ref": "#/definitions/Withdrawal"
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching withdrawal",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/withdrawals/{id}": {
+            "get": {
+                "tags": [
+                    "Withdrawal"
+                ],
+                "summary": "Get all withdrawals by id",
+                "description": "Returns the withdrawals associated with the specified id",
+                "operationId": "get.withdrawals.via.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of unique withdrawal associated with account",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Retrieve all withdrawals.",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Withdrawal"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error fetching withdrawal.",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Withdrawal"
+                ],
+                "summary": "Update a specific existing withdrawal",
+                "description": "Updates withdrawal information based on a specific ID",
+                "operationId": "update.withdrawal.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific withdrawal that needs to be updated",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "amount",
+                        "in": "query",
+                        "description": "Alter amount for associated withdrawal",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Update the status of the withdrawal",
+                        "required": true,
+                        "type": "string",
+                        "items": {
+                            "type": "string"
+                        },
+                        "collectionFormat": "multi",
+                        "enum": [
+                            "pending",
+                            "cancelled",
+                            "completed",
+                            "rejected"
+                        ]
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "ID of specific withdrawal that needs to be updated",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "202": {
+                        "description": "Valid withdrawal update",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error updating withdrawal",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Withdrawal"
+                ],
+                "summary": "Delete a specific existing withdrawal",
+                "description": "Deletes withdrawals based on a specific ID",
+                "operationId": "delete.withdrawal.for.id",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of specific withdrawal that needs to be deleted",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating withdrawal",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/accounts/{id}/withdrawals": {
+            "post": {
+                "tags": [
+                    "Withdrawal"
+                ],
+                "summary": "Create a new withdrawal",
+                "description": "Creates a new withdrawal",
+                "operationId": "create.withdrawal",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of client that the withdrawal would be associated with",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "description": "Withdrawal to be created",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Withdrawal"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Creation request accepted",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    },
+                    "404": {
+                        "description": "Error creating withdrawal",
+                        "schema": {
+                            "$ref": "#/definitions/ErrorModel"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Account": {
+            "required": [
+                "_id",
+                "client_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique account identifier",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type associated with account",
+                    "type": "string",
+                    "enum": [
+                        "Savings",
+                        "Checking",
+                        "Credit Card"
+                    ]
+                },
+                "alias": {
+                    "description": "Alias associated with account",
+                    "type": "string"
+                },
+                "balance": {
+                    "description": "Balance associated with account",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "account_number": {
+                    "description": "16 digit Account Number that is associated with the account e.g. a Credit Card/Debit Card Number",
+                    "type": "string"
+                },
+                "client_id": {
+                    "description": "Unique id of client who owns the account",
+                    "type": "string"
+                }
+            }
+        },
+        "AccountModel": {
+            "required": [
+                "_id",
+                "client_id"
+            ],
+            "properties": {
+                "_id": {
+                    "description": "Unique account identifier",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "type": {
+                    "description": "Type associated with account",
+                    "type": "string",
+                    "enum": [
+                        "Savings",
+                        "Checking",
+                        "Credit Card"
+                    ]
+                },
+                "alias": {
+                    "description": "Alias associated with account",
+                    "type": "string"
+                },
+                "balance": {
+                    "description": "Balance associated with account",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "account_number": {
+                    "description": "16 digit Account Number that is associated with the account e.g. a Credit Card/Debit Card Number",
+                    "type": "string"
+                },
+                "client_id": {
+                    "description": "Unique id of client who owns the account",
+                    "type": "string"
+                }
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "Atm": {
+            "required": [
+                "_id",
+                "geolocation",
+                "alias"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique atm identifier",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "geocode": {
+                    "description": "Geolocation of ATM address",
+                    "$ref": "#/definitions/Geolocation"
+                },
+                "alias": {
+                    "description": "Unique alias associated with atm",
+                    "type": "string"
+                },
+                "supported_lang": {
+                    "description": "Supported languages on ATM",
+                    "type": "string"
+                },
+                "atm_balance": {
+                    "description": "Indicates amount of money left in ATM",
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "Atm"
+            }
+        },
+        "AtmModel": {
+            "required": [
+                "_id",
+                "geolocation",
+                "alias"
+            ],
+            "properties": {
+                "_id": {
+                    "description": "Unique atm identifier",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "geolocation": {
+                    "description": "Geolocation of ATM address",
+                    "$ref": "#/definitions/Geolocation"
+                },
+                "alias": {
+                    "description": "Unique alias associated with atm",
+                    "type": "string"
+                },
+                "supported_lang": {
+                    "description": "Supported languages on ATM",
+                    "type": "string"
+                },
+                "atm_balance": {
+                    "description": "Indicates amount of money left in ATM",
+                    "type": "integer",
+                    "format": "int64"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "AtmModel"
+            }
+        },
+        "Branch": {
+            "required": [
+                "_id",
+                "name",
+                "hours"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique branch identifier",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "description": "Unique name of branch",
+                    "type": "string"
+                },
+                "hours": {
+                    "description": "Hours of operation of branch",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "tel": {
+                    "description": "Contact of branch",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "Address of branch",
+                    "$ref": "#/definitions/Address"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "Branch"
+            }
+        },
+        "BranchModel": {
+            "required": [
+                "_id",
+                "name",
+                "hours"
+            ],
+            "properties": {
+                "_id": {
+                    "description": "Unique branch identifier",
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "name": {
+                    "description": "Unique name of branch",
+                    "type": "string"
+                },
+                "hours": {
+                    "description": "Hours of operation of branch",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "tel": {
+                    "description": "Contact of branch",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "Address of branch",
+                    "$ref": "#/definitions/Address"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "BranchModel"
+            }
+        },
+        "Client": {
+            "required": [
+                "_id",
+                "first_name",
+                "last_name",
+                "address"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique client identifier",
+                    "type": "string"
+                },
+                "first_name": {
+                    "description": "First name of client",
+                    "type": "string"
+                },
+                "last_name": {
+                    "description": "Last name of client",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "Balance associated with account",
+                    "$ref": "#/definitions/Address"
+                }
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "ClientModel": {
+            "required": [
+                "_id",
+                "first_name",
+                "last_name",
+                "address"
+            ],
+            "properties": {
+                "_id": {
+                    "description": "Unique client identifier",
+                    "type": "string"
+                },
+                "first_name": {
+                    "description": "First name of client",
+                    "type": "string"
+                },
+                "last_name": {
+                    "description": "Last name of client",
+                    "type": "string"
+                },
+                "address": {
+                    "description": "Balance associated with account",
+                    "$ref": "#/definitions/Address"
+                }
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "Deposit": {
+            "required": [
+                "id",
+                "payee_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique deposit identifier",
+                    "type": "string"
+                },
+                "payee_id": {
+                    "description": "Unique id associated with account of payee",
+                    "type": "string"
+                }
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "DepositModel": {
+            "required": [
+                "_id",
+                "transaction_date",
+                "type",
+                "status",
+                "payee_id",
+                "amount"
+            ],
+            "properties": {
+                "_id": {
+                    "description": "Unique deposit identifier",
+                    "type": "string"
+                },
+                "transaction_date": {
+                    "description": "Transaction date of deposit initiation",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of transaction",
+                    "type": "string",
+                    "enum": [
+                        "deposit",
+                        "withdrawal",
+                        "transfer"
+                    ]
+                },
+                "status": {
+                    "description": "Current status of deposit",
+                    "type": "string",
+                    "enum": [
+                        "pending",
+                        "cancelled",
+                        "completed"
+                    ]
+                },
+                "payee_id": {
+                    "description": "Unique id associated with account of payee",
+                    "type": "string"
+                },
+                "amount": {
+                    "description": "Amount to be deposited",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "description": {
+                    "description": "Description of current deposit",
+                    "type": "string"
+                }
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "ErrorModel": {
+            "required": [
+                "code",
+                "message"
+            ],
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "Transfer": {
+            "required": [
+                "id",
+                "payee_id",
+                "payer_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique transfer identifier",
+                    "type": "string"
+                },
+                "payee_id": {
+                    "description": "Unique id associated with account of payee",
+                    "type": "string"
+                },
+                "payer_id": {
+                    "description": "Unique id associated with account of payer",
+                    "type": "string"
+                }
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "TransferModel": {
+            "required": [
+                "_id",
+                "transaction_date",
+                "type",
+                "status",
+                "payee_id",
+                "payer_id",
+                "amount"
+            ],
+            "properties": {
+                "_id": {
+                    "description": "Unique transfer identifier",
+                    "type": "string"
+                },
+                "transaction_date": {
+                    "description": "Transaction date of transfer initiation",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of transaction",
+                    "type": "string",
+                    "enum": [
+                        "deposit",
+                        "withdrawal",
+                        "transfer"
+                    ]
+                },
+                "status": {
+                    "description": "Current status of transfer",
+                    "type": "string",
+                    "enum": [
+                        "pending",
+                        "cancelled",
+                        "completed"
+                    ]
+                },
+                "payee_id": {
+                    "description": "Unique id associated with account of payee",
+                    "type": "string"
+                },
+                "payer_id": {
+                    "description": "Unique id associated with account of payer",
+                    "type": "string"
+                },
+                "amount": {
+                    "description": "Amount to be transfered",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "description": {
+                    "description": "Description of current transfer",
+                    "type": "string"
+                }
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "AccountType": {
+            "required": [
+                "id",
+                "type"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique account type identifier",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Possible account types",
+                    "type": "string",
+                    "enum": [
+                        "Savings",
+                        "Checking",
+                        "Credit Card"
+                    ]
+                }
+            }
+        },
+        "Address": {
+            "properties": {
+                "street_name": {
+                    "description": "Street name assigned to address",
+                    "type": "string"
+                },
+                "street_number": {
+                    "description": "Street number assigned to address",
+                    "type": "string"
+                },
+                "city": {
+                    "description": "City location of assigned address",
+                    "type": "string"
+                },
+                "state": {
+                    "description": "State of assigned address",
+                    "type": "string"
+                },
+                "zip": {
+                    "description": "Zip code of assigned address",
+                    "type": "number",
+                    "format": "int32"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "Address"
+            }
+        },
+        "Geocode": {
+            "properties": {
+                "longitude": {
+                    "description": "Longitude of ATM address - (-180 : 180)",
+                    "type": "number",
+                    "maximum": 180,
+                    "minimum": -180
+                },
+                "latitude": {
+                    "description": "Latitude of ATM address - (-90 : 90)",
+                    "type": "number",
+                    "maximum": 90,
+                    "minimum": -90
+                }
+            },
+            "xml": {
+                "name": "Geocode"
+            }
+        },
+        "Language": {
+            "properties": {
+                "id": {
+                    "description": "Unique identifier of language",
+                    "type": "string"
+                },
+                "lang": {
+                    "description": "Language type",
+                    "type": "string"
+                }
+            },
+            "xml": {
+                "name": "Language"
+            }
+        },
+        "Transaction": {
+            "properties": {
+                "id": {
+                    "description": "Unique transfer identifier",
+                    "type": "string"
+                },
+                "created_date": {
+                    "description": "Transaction date of transfer initiation",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of transaction",
+                    "type": "string",
+                    "enum": [
+                        "deposit",
+                        "withdrawal",
+                        "transfer"
+                    ]
+                },
+                "status": {
+                    "description": "Current status of current transaction",
+                    "type": "string",
+                    "enum": [
+                        "pending",
+                        "cancelled",
+                        "completed",
+                        "rejected"
+                    ]
+                },
+                "amount": {
+                    "description": "Amount of of current transaction",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "opening_balance": {
+                    "description": "Opening balance of current transaction",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "closing_balance": {
+                    "description": "Closing balance of current transaction",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "description": {
+                    "description": "Description of current transaction",
+                    "type": "string"
+                }
+            },
+            "type": "object",
+            "xml": {
+                "name": "Transaction"
+            }
+        },
+        "Withdrawal": {
+            "required": [
+                "id",
+                "payer_id"
+            ],
+            "properties": {
+                "id": {
+                    "description": "Unique withdrawal identifier",
+                    "type": "string"
+                },
+                "payer_id": {
+                    "description": "Unique id associated with account of payer",
+                    "type": "string"
+                }
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        },
+        "WithdrawalModel": {
+            "required": [
+                "_id",
+                "transaction_date",
+                "type",
+                "status",
+                "payee_id",
+                "amount"
+            ],
+            "properties": {
+                "_id": {
+                    "description": "Unique withdrawal identifier",
+                    "type": "string"
+                },
+                "transaction_date": {
+                    "description": "Transaction date of withdrawal initiation",
+                    "type": "string"
+                },
+                "type": {
+                    "description": "Type of transaction",
+                    "type": "string",
+                    "enum": [
+                        "deposit",
+                        "withdrawal",
+                        "transfer"
+                    ]
+                },
+                "status": {
+                    "description": "Current status of withdrawal",
+                    "type": "string",
+                    "enum": [
+                        "pending",
+                        "cancelled",
+                        "completed"
+                    ]
+                },
+                "payer_id": {
+                    "description": "Unique id associated with account of payer",
+                    "type": "string"
+                },
+                "amount": {
+                    "description": "Amount to be withdrawaled",
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "description": {
+                    "description": "Description of current withdrawal",
+                    "type": "string"
+                }
+            },
+            "externalDocs": {
+                "description": "find more info here",
+                "url": "https://swagger.io/about"
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "",
+        "url": ""
+    }
+}

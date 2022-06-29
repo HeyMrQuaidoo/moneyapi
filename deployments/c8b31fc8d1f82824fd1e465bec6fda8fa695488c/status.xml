@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<deployment>
+  <id>c8b31fc8d1f82824fd1e465bec6fda8fa695488c</id>
+  <author>DaCardinal</author>
+  <deployer>DaCardinal</deployer>
+  <authorEmail>Daniel@Macbook-Pro-2.local</authorEmail>
+  <message>Changed to https
+</message>
+  <progress></progress>
+  <status>Success</status>
+  <statusText></statusText>
+  <lastSuccessEndTime>2015-11-11T22:04:20.5334697Z</lastSuccessEndTime>
+  <receivedTime>2015-11-11T22:04:18.635564Z</receivedTime>
+  <startTime>2015-11-11T22:04:19.1544607Z</startTime>
+  <endTime>2015-11-11T22:04:20.5334697Z</endTime>
+  <complete>True</complete>
+  <is_temp>False</is_temp>
+  <is_readonly>False</is_readonly>
+</deployment>

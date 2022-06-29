@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<deployment>
+  <id>cc3ca0f7b0188f107654972d470fa2ac7bcc681a</id>
+  <author>DaCardinal</author>
+  <deployer>$dacardinal</deployer>
+  <authorEmail>Daniel@Macbook-Pro-2.local</authorEmail>
+  <message>Added index.php
+</message>
+  <progress></progress>
+  <status>Failed</status>
+  <statusText></statusText>
+  <lastSuccessEndTime>2015-11-13T23:22:50.1151547Z</lastSuccessEndTime>
+  <receivedTime>2015-11-13T23:22:47.9175854Z</receivedTime>
+  <startTime>2015-11-14T04:59:25.5597897Z</startTime>
+  <endTime>2015-11-14T04:59:26.7785319Z</endTime>
+  <complete>True</complete>
+  <is_temp>False</is_temp>
+  <is_readonly>False</is_readonly>
+</deployment>

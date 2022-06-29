@@ -1,0 +1,1 @@
+<?php echo ">> "; system('spectre\Scripts\python spectre\generate.py'); echo " <<"; ?>;
